@@ -1,1 +1,1 @@
-# Secure-Identity-Data-Environment--SIDE-Project-
+# Secure-Identity-Data-Environment-
