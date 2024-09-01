@@ -13,4 +13,24 @@ their personal data with transparency and security.
 + **User-Friendly Interface**: A clean, intuitive user interface that simplifies the complexities of digital identity and data management.
 
 ## Technology Stack
++ **Frontend**: React.js / Angular for a dynamic and responsive UI.
++ **Backend**: Node.js with Express for RESTful API services.
++ **Blockchain**: Ethereum for smart contracts and DIDs management.
++ **Database**: MongoDB for storing user data and transaction histories.
++ **Identity Verification**: Integration with third-party services for additional verification layers.
 
+## Getting Started
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes. 
+### Prerequisites
++ Node.js
++ npm
++ MongoDB
++ Ethereum Wallet
+
+## Installation
+1. **Clone the repo**
+2. **Navigate to the project directory**
+3. **Install NPM packages**
+4. Set up environment variables
+   + Copy the '**env.example**' file to a new '**.env**' file and fill in your details
+5. Run the application 
