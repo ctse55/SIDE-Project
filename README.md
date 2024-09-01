@@ -29,20 +29,20 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 ## Installation
 1. **Clone the repo**
-   '''
+   ```
    git clone https://github.com/yourusername/SIDE-project.git
-   '''
+   ```
 2. **Navigate to the project directory**
-   '''
+   ```
    cd SIDE-project
-   '''
+   ```
 3. **Install NPM packages**
-   '''
+   ```
    npm install
-   '''
+   ```
 4. **Set up environment variables**
    + Copy the '**env.example**' file to a new '**.env**' file and fill in your details
 5. **Run the application**
-   '''
+   ```
    npm start
-   '''
+   ```
