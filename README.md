@@ -1,48 +1,70 @@
-# Secure-Identity-Data-Ecosystem-(SIDE)-Project
-## Overview
-The Secure Identity and Data Ecosystem (SIDE) is an open-source platform designed to provide a comprehensive 
-solution for managing digital identities and secure data sharing. Utilizing blockchain technology, SIDE aims 
-to empower users with full control over their digital identities, enabling them to manage, share, and protect
-their personal data with transparency and security. 
+# Getting Started with Create React App
 
-## Features
-+ **Digital Identity Management**: Users can create and manage their digital identities using decentralized identifiers (DIDs), which ensure privacy and user control.
-+ **Digital Wallet Integration**: Securely store and manage digital assets, including cryptocurrencies and digital credentials
-+ **Consent-based Data Sharing**: Share personal data securely with explicit user consent, leveraging smart contracts to enforce data access rules.
-+ **Blockchain Integration**: Utilizes blockchain technology for immutable record keeping and enhanced security.
-+ **User-Friendly Interface**: A clean, intuitive user interface that simplifies the complexities of digital identity and data management.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Technology Stack
-+ **Frontend**: React.js / Angular for a dynamic and responsive UI.
-+ **Backend**: Node.js with Express for RESTful API services.
-+ **Blockchain**: Ethereum for smart contracts and DIDs management.
-+ **Database**: MongoDB for storing user data and transaction histories.
-+ **Identity Verification**: Integration with third-party services for additional verification layers.
+## Available Scripts
 
-## Getting Started
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes. 
-### Prerequisites
-+ Node.js
-+ npm
-+ MongoDB
-+ Ethereum Wallet
+In the project directory, you can run:
 
-## Installation
-1. **Clone the repo**
-   ```
-   git clone https://github.com/yourusername/SIDE-project.git
-   ```
-2. **Navigate to the project directory**
-   ```
-   cd SIDE-project
-   ```
-3. **Install NPM packages**
-   ```
-   npm install
-   ```
-4. **Set up environment variables**
-   + Copy the '**env.example**' file to a new '**.env**' file and fill in your details
-5. **Run the application**
-   ```
-   npm start
-   ```
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
