@@ -30,7 +30,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 ## Installation
 1. **Clone the repo**
    ```
-   git clone https://github.com/yourusername/SIDE-project.git
+   git clone https://github.com/ctse55/SIDE_App.git
    ```
 2. **Navigate to the project directory**
    ```
