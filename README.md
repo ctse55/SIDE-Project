@@ -6,17 +6,17 @@ to empower users with full control over their digital identities, enabling them 
 their personal data with transparency and security. 
 
 ## Features
-+ **Digital Identity Management**: Users can create and manage their digital identities using decentralized identifiers (DIDs), which ensure privacy and user control.
++ **User Medical Record**: Users can store important medical information onto the blockchain and can only be accessed by authenticating their own MetaMask Account
 + **Digital Wallet Integration**: Securely store and manage digital assets, including cryptocurrencies and digital credentials
 + **Consent-based Data Sharing**: Share personal data securely with explicit user consent, leveraging smart contracts to enforce data access rules.
 + **Blockchain Integration**: Utilizes blockchain technology for immutable record keeping and enhanced security.
 + **User-Friendly Interface**: A clean, intuitive user interface that simplifies the complexities of digital identity and data management.
 
 ## Technology Stack
-+ **Frontend**: React.js / Angular for a dynamic and responsive UI.
++ **Frontend**: React.js for a dynamic and responsive UI.
 + **Backend**: Node.js with Express for RESTful API services.
 + **Blockchain**: Ethereum for smart contracts and DIDs management.
-+ **Database**: MongoDB for storing user data and transaction histories.
++ **Database**: MySQL Database for storing user data and transaction histories.
 + **Identity Verification**: Integration with third-party services for additional verification layers.
 
 ## Getting Started
@@ -24,8 +24,8 @@ Follow these instructions to get a copy of the project up and running on your lo
 ### Prerequisites
 + Node.js
 + npm
-+ MongoDB
-+ Ethereum Wallet
++ Truffle Module
++ Ethereum Wallet (MetaMask)
 
 ## Installation
 1. **Clone the repo**
