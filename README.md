@@ -34,7 +34,7 @@ Follow these instructions to get a copy of the project up and running on your lo
    ```
 2. **Navigate to the project directory**
    ```
-   cd SIDE-project
+   cd SIDE_App
    ```
 3. **Install NPM packages**
    ```
