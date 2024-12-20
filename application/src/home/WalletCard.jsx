@@ -34,9 +34,9 @@ const WalletCard = () => {
   const getAccountBalance = async (account) => {
     if (window.ethereum) {
       try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const balance = await provider.getBalance(account);
-        setUserBalance(ethers.utils.formatEther(balance));
+        setUserBalance(ethers.formatEther(balance));
       } catch (error) {
         console.error("Error fetching balance:", error);
         setErrorMessage(error.message);

@@ -1,84 +1,116 @@
+// Modal Background
 .modalBackground {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.2);
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modalContainer {
-    width: 500px;
-    height: 200px;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-  }
-  
-  .modalContainer {
-    display: inline-block;
-    text-align: center;
-  }
-  .title {
-    display: inline-block;
-    text-align: center;
-  }
-  
-  .titleCloseBtn {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .titleCloseBtn button {
-    background-color: transparent;
-    border: none;
-    font-size: 1px;
-    cursor: pointer;
-  }
-  
-  .modalContainer .body {
-    flex: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.7rem;
-    text-align: center;
-  }
-  
-  .modalContainer .footer {
-    flex: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modalContainer .footer button {
-    width: 100px;
-    height: 35px;
-    margin: 10px;
-    border: none;
-    background-color: cornflowerblue;
-    color: white;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  #cancelBtn {
-    background-color: crimson;
-  }
-  .address {
-    display: block;
-    margin: auto;
-    height: 30px;
-    width: 330px;
-    text-align: center;
-  }
-  
-  input[type="text"]:focus {
-    background-color: lightblue;
-  }
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2); // Transparent overlay
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; // Ensure the modal is on top
+}
+
+// Modal Container
+.modalContainer {
+  width: 500px;
+  height: 300px; // Adjust height for better content spacing
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  overflow: hidden; // Prevent content overflow
+}
+
+// Modal Title Section
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.titleCloseBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.titleCloseBtn button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.titleCloseBtn button:hover {
+  transform: scale(1.1); // Slight zoom on hover
+}
+
+// Modal Body Section
+.modalContainer .body {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem; // Adjust font size for better readability
+  text-align: center;
+  padding: 10px;
+}
+
+// Modal Footer Section
+.modalContainer .footer {
+  flex: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px; // Add spacing between buttons
+  margin-top: 10px;
+}
+
+.modalContainer .footer button {
+  width: 100px;
+  height: 35px;
+  border: none;
+  background-color: cornflowerblue;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.modalContainer .footer button:hover {
+  background-color: royalblue; // Slightly darker on hover
+  transform: scale(1.05); // Add hover zoom effect
+}
+
+// Cancel Button
+#cancelBtn {
+  background-color: crimson;
+}
+
+#cancelBtn:hover {
+  background-color: darkred; // Darker shade on hover
+}
+
+// Address Input Styling
+.address {
+  display: block;
+  margin: 15px auto; // Add spacing between elements
+  height: 30px;
+  width: 330px;
+  text-align: center;
+  border: 1px solid #ccc; // Add subtle border
+  border-radius: 5px; // Match modal style
+  padding: 5px;
+}
+
+input[type="text"]:focus {
+  background-color: lightblue;
+  border: 1px solid cornflowerblue; // Match modal's theme
+  outline: none; // Remove default browser outline
+  transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}

@@ -1,4 +1,4 @@
-import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
+import Upload from "./artifacts/Upload.json";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import FileUpload from "./components/FileUpload";
@@ -17,28 +17,44 @@ function FileSharingApp() {
     const loadProvider = async () => {
       if (window.ethereum) {
         try {
-          const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
-          await ethersProvider.send("eth_requestAccounts", []);
-          const signer = ethersProvider.getSigner();
-          const address = await signer.getAddress();
-          setAccount(address);
+          const provider = new ethers.BrowserProvider(window.ethereum); // Use BrowserProvider in v6
+          await provider.send("eth_requestAccounts", []);
+          const accounts = await window.ethereum.request({ method: "eth_accounts" });
 
-          const contractAddress = "Your Contract Address Here"; // Replace with your contract address
-          const contractInstance = new ethers.Contract(
-            contractAddress,
-            Upload.abi,
-            signer
-          );
+          if (accounts.length === 0) {
+            setErrorMessage("No accounts found. Please connect your MetaMask account.");
+            return;
+          }
 
-          setProvider(ethersProvider);
-          setContract(contractInstance);
+          const signer = await provider.getSigner();
+          const account = await signer.getAddress();
+          setAccount(account);
+
+          // Load contract address from .env
+          const contractAddress = process.env.REACT_APP_FILESHARING_CONTRACT_ADDRESS;
+          if (!contractAddress) {
+            throw new Error("Contract address is not defined. Please set REACT_APP_CONTRACT_ADDRESS in your .env file.");
+          }
+          console.log("Contract Address:", contractAddress);
+
+          // Initialize the contract
+          const contract = new ethers.Contract(contractAddress, Upload.abi, signer);
+
+          const network = await provider.getNetwork();
+          if (Number(network.chainId) !== 1337) {
+            setErrorMessage(`Unexpected network. Detected chain ID ${network.chainId}. Please connect to the expected network (e.g., Ganache).`);
+            return;
+          }
+
+          setProvider(provider);
+          setContract(contract);
         } catch (error) {
           console.error("Error loading provider or contract:", error);
-          setErrorMessage("Failed to load provider. Please ensure MetaMask is connected.");
+          setErrorMessage("Failed to load provider. Please ensure MetaMask is connected and properly configured.");
         }
       } else {
         console.error("MetaMask is not installed.");
-        setErrorMessage("MetaMask is not installed. Please install it to use this feature.");
+        setErrorMessage("MetaMask is not installed. Install it from https://metamask.io/ to use this application.");
       }
     };
 

@@ -15,27 +15,74 @@ function Home() {
     };
 
     return (
-        <div style={{ margin: '0 auto', maxWidth: '800px', height: '100vh', position: 'relative' }}>
-            <h1>Hi {auth?.firstName}!</h1>
-            <p>Welcome to your SIDE Dashboard</p>
-            <p><Link to="/users">Manage Users</Link></p>
+        <div style={{ margin: '0 auto', maxWidth: '800px', padding: '20px', height: '100vh', boxSizing: 'border-box' }}>
+            <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Hi {auth?.firstName}!</h1>
+            <p style={{ textAlign: 'center', marginBottom: '30px' }}>Welcome to your SIDE Dashboard</p>
+            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                <Link to="/users" style={{ textDecoration: 'none', color: '#007bff' }}>
+                    Manage Users
+                </Link>
+            </div>
 
             {/* Connect Wallet Button */}
-            <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                <button onClick={() => setShowWalletCard(true)}>Connect to Wallet</button>
+            <div style={{ marginBottom: '40px', textAlign: 'center' }}>
+                <button
+                    onClick={() => setShowWalletCard(true)}
+                    style={{
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        borderRadius: '5px',
+                        backgroundColor: '#007bff',
+                        color: '#fff',
+                        border: 'none',
+                        cursor: 'pointer',
+                    }}
+                >
+                    Connect to Wallet
+                </button>
             </div>
 
             {/* Show WalletCard if button clicked */}
-            {showWalletCard && <WalletCard />}
+            {showWalletCard && (
+                <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                    <WalletCard />
+                </div>
+            )}
 
             {/* Access Medical Database Button */}
-            <div style={{ marginTop: '200px', textAlign: 'center' }}>
-                <button onClick={handleHealthcareDatabaseClick}>Access Medical Database</button>
+            <div style={{ marginBottom: '40px', textAlign: 'center' }}>
+                <button
+                    onClick={handleHealthcareDatabaseClick}
+                    style={{
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        borderRadius: '5px',
+                        backgroundColor: '#28a745',
+                        color: '#fff',
+                        border: 'none',
+                        cursor: 'pointer',
+                    }}
+                >
+                    Access Medical Database
+                </button>
             </div>
 
             {/* File Sharing Button */}
-            <div style={{ marginTop: '200px', textAlign: 'center' }}>
-                <button onClick={() => navigate('/file-sharing')}>File Sharing</button>
+            <div style={{ textAlign: 'center' }}>
+                <button
+                    onClick={() => navigate('/file-sharing')}
+                    style={{
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        borderRadius: '5px',
+                        backgroundColor: '#ffc107',
+                        color: '#000',
+                        border: 'none',
+                        cursor: 'pointer',
+                    }}
+                >
+                    File Sharing
+                </button>
             </div>
         </div>
     );

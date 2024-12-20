@@ -1,51 +1,67 @@
+// Container styling
 .top {
-    margin: 40px;
-  }
-  
-  input[type="file"] {
-    display: none;
-  }
-  
-  .choose {
-    background-color: initial;
-    background-image: linear-gradient(-180deg, #5aff15, #00b712);
-    border-radius: 6px;
-    color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 6px;
-    margin-right: 10px;
-    padding-bottom: 10px;
-  }
-  .choose:hover {
-    box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
-  }
-  .textArea {
-    color: white;
-  }
-  
-  .upload {
-    border: 1px solid #13aa52;
-    background-color: #13aa52;
-    color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 6px;
-    margin-left: 10px;
-  }
-  
-  .upload:hover {
-    border: 1px solid #13aa52;
-    background-color: #a5efc1;
-    color: #ffffff;
-    padding: 5px 10px;
-  }
-  
-  .upload:disabled,
-  .upload[disabled] {
-    border: 1px solid #999999;
-    background-color: #cccccc;
-    color: #666666;
-  }
-  
-  div {
-    padding: 5px 10px;
-  }
+  margin: 40px auto; // Center the container horizontally
+  text-align: center; // Center align all child elements
+}
+
+// Hide the file input element
+input[type="file"] {
+  display: none;
+}
+
+// Styling for the 'Choose' button
+.choose {
+  background-image: linear-gradient(-180deg, #5aff15, #00b712);
+  border-radius: 6px;
+  color: #ffffff;
+  padding: 10px 20px; // Increase padding for better usability
+  border: none; // Remove border for cleaner appearance
+  font-size: 16px; // Add consistent font size
+  cursor: pointer; // Ensure pointer cursor on hover
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out; // Smooth hover effects
+}
+
+.choose:hover {
+  box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+  background-color: #00a010; // Slightly darker shade for hover
+}
+
+// Styling for text area displaying file name
+.textArea {
+  color: white;
+  font-size: 14px; // Add consistent font size
+  margin-top: 10px; // Add spacing from other elements
+  display: inline-block; // Inline style for better alignment
+}
+
+// Styling for the 'Upload' button
+.upload {
+  border: 1px solid #13aa52;
+  background-color: #13aa52;
+  color: #ffffff;
+  padding: 10px 20px; // Increase padding for consistency
+  border-radius: 6px;
+  margin-left: 10px;
+  font-size: 16px; // Add consistent font size
+  cursor: pointer; // Pointer cursor on hover
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; // Smooth hover effects
+}
+
+.upload:hover {
+  background-color: #a5efc1; // Change background on hover
+  color: #ffffff; // Ensure text color remains white
+}
+
+// Disabled 'Upload' button styling
+.upload:disabled,
+.upload[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed; // Indicate disabled state
+}
+
+// General div padding
+div {
+  padding: 5px 10px;
+}

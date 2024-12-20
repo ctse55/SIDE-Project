@@ -1,205 +1,155 @@
-import React, {useState, useEffect} from 'react';
-import {ethers} from 'ethers';
+import React, { useState, useEffect } from "react";
+import { ethers, parseUnits } from "ethers";
+import HealthcareRecords from "../artifacts/HealthcareRecords.json";
 
 const Healthcare = () => {
     const [provider, setProvider] = useState(null);
     const [signer, setSigner] = useState(null);
     const [contract, setContract] = useState(null);
     const [account, setAccount] = useState(null);
-    const [isOwner, setIsOwner] = useState(null);
-    const [patientID, setPatientID] = useState('');
-    const [diagnosis, setDiagnosis] = useState('');
-    const [treatment, setTreatment] = useState('');
+    const [isOwner, setIsOwner] = useState(false);
+    const [patientID, setPatientID] = useState("");
+    const [diagnosis, setDiagnosis] = useState("");
+    const [treatment, setTreatment] = useState("");
     const [patientRecords, setPatientRecords] = useState([]);
     const [providerAddress, setProviderAddress] = useState("");
 
-
-    const contractABI = [
-        {
-            "inputs": [],
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "patientID",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "string",
-                    "name": "patientName",
-                    "type": "string"
-                },
-                {
-                    "internalType": "string",
-                    "name": "diagnosis",
-                    "type": "string"
-                },
-                {
-                    "internalType": "string",
-                    "name": "treatment",
-                    "type": "string"
-                }
-            ],
-            "name": "addRecord",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "provider",
-                    "type": "address"
-                }
-            ],
-            "name": "authorizeProvider",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "getOwner",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "patientID",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getPatientRecords",
-            "outputs": [
-                {
-                    "components": [
-                        {
-                            "internalType": "uint256",
-                            "name": "recordID",
-                            "type": "uint256"
-                        },
-                        {
-                            "internalType": "string",
-                            "name": "patientName",
-                            "type": "string"
-                        },
-                        {
-                            "internalType": "string",
-                            "name": "diagnosis",
-                            "type": "string"
-                        },
-                        {
-                            "internalType": "string",
-                            "name": "treatment",
-                            "type": "string"
-                        },
-                        {
-                            "internalType": "uint256",
-                            "name": "timestamp",
-                            "type": "uint256"
-                        }
-                    ],
-                    "internalType": "struct HealthcareRecords.Record[]",
-                    "name": "",
-                    "type": "tuple[]"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ];
+    const contractAddress = process.env.REACT_APP_HEALTHCARE_CONTRACT_ADDRESS;
 
     useEffect(() => {
         const connectWallet = async () => {
             try {
-                // Connect to MetaMask
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                await provider.send('eth_requestAccounts', []);
-                const signer = provider.getSigner();
-                setProvider(provider);
+                if (!window.ethereum) {
+                    alert("MetaMask is required to use this application.");
+                    return;
+                }
+    
+                const web3Provider = new ethers.BrowserProvider(window.ethereum);
+                await web3Provider.send("eth_requestAccounts", []); // Request accounts from MetaMask
+    
+                const signer = await web3Provider.getSigner(); // Get signer directly
+                setProvider(web3Provider);
                 setSigner(signer);
-
-                // Fetch the connected account
+    
+                // Log the network details
+                const network = await web3Provider.getNetwork();
+                console.log("Network Chain ID:", network.chainId);
+    
                 const accountAddress = await signer.getAddress();
                 setAccount(accountAddress);
-
-                console.log('Connected account:', accountAddress);
-
-                // Fetch the contract address dynamically (e.g., from environment variables)
-                const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
-
-                if (!contractAddress) {
-                    throw new Error('Contract address not found. Please set REACT_APP_CONTRACT_ADDRESS in your environment.');
-                }
-
-                // Initialize the contract
-                const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    
+                const contract = new ethers.Contract(
+                    contractAddress,
+                    HealthcareRecords.abi,
+                    signer
+                );
                 setContract(contract);
-
-                // Check if the connected account is the contract owner
+    
+                console.log("Connected to contract:", contract);
+    
                 const ownerAddress = await contract.getOwner();
+                console.log("Contract Owner:", ownerAddress);
                 setIsOwner(accountAddress.toLowerCase() === ownerAddress.toLowerCase());
             } catch (error) {
-                console.error('Error connecting to wallet:', error);
+                console.error("Error connecting to wallet:", error);
             }
         };
-
+    
         connectWallet();
     }, []);
+    
 
     const fetchPatientRecords = async () => {
         try {
-            const records = await contract.getPatientRecords(patientID);
-            console.log(records);
-            setPatientRecords(records);
+            if (!patientID) {
+                alert("Please enter a valid patient ID.");
+                return;
+            }
+    
+            console.log("Fetching records for Patient ID:", patientID);
+            console.log("Caller Account:", account);
+    
+            // Check if the current user is authorized
+            const isAuthorized = await contract.isAuthorizedProvider(account);
+            console.log("Is Authorized:", isAuthorized);
+            if (!isAuthorized) {
+                alert("You are not authorized to fetch patient records.");
+                return;
+            }
+    
+            // Fetch patient records
+            const records = await contract.getPatientRecords(patientID); // Declare records here
+            console.log("Fetched Records:", records);
+    
+            // Parse the returned records (if needed)
+            const parsedRecords = records.map((record) => ({
+                recordID: Number(record.recordID),
+                patientName: record.patientName,
+                diagnosis: record.diagnosis,
+                treatment: record.treatment,
+                timestamp: new Date(Number(record.timestamp) * 1000).toLocaleString(),
+            }));
+            setPatientRecords(parsedRecords);
         } catch (error) {
-            console.error('Error fetching patient records:', error);
+            console.error("Error fetching patient records:", error);
+    
+            if (error.code === "CALL_EXCEPTION") {
+                alert("An error occurred while fetching records. Check if the patient ID exists or if you are authorized.");
+            } else {
+                alert("Failed to fetch patient records. Check console for details.");
+            }
         }
     };
+    
 
+    
     const addRecord = async () => {
         try {
-            const tx = await contract.addRecord(patientID, 'Alice', diagnosis, treatment);
-            await tx.wait();
+            if (!patientID || !diagnosis || !treatment || isNaN(patientID)) {
+                alert("Please fill out all fields with valid inputs.");
+                return;
+            }
+
+            console.log("Adding record with data:", { patientID, diagnosis, treatment });
+            const tx = await contract.addRecord(patientID, "Steve", diagnosis, treatment, {
+                gasLimit: parseUnits("500000", "wei"),
+            });
+            console.log("Transaction sent. Hash:", tx.hash);
+
+            const receipt = await tx.wait();
+            console.log("Transaction confirmed. Receipt:", receipt);
+
             fetchPatientRecords();
-            alert('Record added successfully');
+            alert("Record added successfully.");
         } catch (error) {
-            console.error('Error adding record:', error);
+            console.error("Error adding record:", error);
+            alert("Failed to add record. Check console for details.");
         }
     };
 
     const authorizeProvider = async () => {
-        if (isOwner) {
-            try {
-                const tx = await contract.authorizeProvider(providerAddress);
-                await tx.wait();
-                alert(`Provider ${providerAddress} authorized successfully`);
-            } catch (error) {
-                console.error('Error authorizing provider:', error);
+        try {
+            if (!isOwner) {
+                alert("Only the contract owner can authorize providers.");
+                return;
             }
-        } else {
-            alert('Only the contract owner can authorize providers');
+
+            console.log("Authorizing provider:", providerAddress);
+            const tx = await contract.authorizeProvider(providerAddress);
+            await tx.wait();
+            alert(`Provider ${providerAddress} authorized successfully.`);
+        } catch (error) {
+            console.error("Error authorizing provider:", error);
         }
     };
+
+    
 
     return (
         <div className="container">
             <h1 className="title">Healthcare Application</h1>
             {account && <p className="account-info">Connected Account: {account}</p>}
-            {isOwner && <p className="owner-info">You are the contract owner</p>}
+            {isOwner && <p className="owner-info">You are the contract owner.</p>}
 
             <div className="form-section">
                 <h2>Fetch Patient Records</h2>
@@ -210,9 +160,7 @@ const Healthcare = () => {
                     value={patientID}
                     onChange={(e) => setPatientID(e.target.value)}
                 />
-                <button className="action-button" onClick={fetchPatientRecords}>
-                    Fetch Records
-                </button>
+                <button className="action-button" onClick={fetchPatientRecords}>Fetch Records</button>
             </div>
 
             <div className="form-section">
@@ -231,13 +179,11 @@ const Healthcare = () => {
                     value={treatment}
                     onChange={(e) => setTreatment(e.target.value)}
                 />
-                <button className="action-button" onClick={addRecord}>
-                    Add Records
-                </button>
+                <button className="action-button" onClick={addRecord}>Add Record</button>
             </div>
 
             <div className="form-section">
-                <h2>Authorize Healthcare Provider</h2>
+                <h2>Authorize Provider</h2>
                 <input
                     className="input-field"
                     type="text"
@@ -245,9 +191,7 @@ const Healthcare = () => {
                     value={providerAddress}
                     onChange={(e) => setProviderAddress(e.target.value)}
                 />
-                <button className="action-button" onClick={authorizeProvider}>
-                    Authorize Provider
-                </button>
+                <button className="action-button" onClick={authorizeProvider}>Authorize Provider</button>
             </div>
 
             <div className="records-section">
@@ -257,10 +201,7 @@ const Healthcare = () => {
                         <p>Record ID: {record.recordID.toNumber()}</p>
                         <p>Diagnosis: {record.diagnosis}</p>
                         <p>Treatment: {record.treatment}</p>
-                        <p>
-                            Timestamp:{' '}
-                            {new Date(record.timestamp.toNumber() * 1000).toLocaleString()}
-                        </p>
+                        <p>Timestamp: {new Date(Number(record.timestamp) * 1000).toLocaleString()}</p>
                     </div>
                 ))}
             </div>
